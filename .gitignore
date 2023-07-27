@@ -2,3 +2,4 @@
 /data
 /models
 /wandb
+model.pt
