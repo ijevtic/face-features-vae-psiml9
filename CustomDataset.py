@@ -18,4 +18,4 @@ class CustomDataset(Dataset):
         image =  Image.open(img_path)
         if self.transform:
             image = self.transform(image)
-        return torch.flatten(image)
+        return image
