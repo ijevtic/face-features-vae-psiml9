@@ -22,7 +22,7 @@ NUM_EPOCHS = 200
 BATCH_SIZE = 32
 LR_RATE = 3e-4
 KL_COEFF = 0.0000025
-PATH = "model.pt"
+PATH = "model_mixa.pt"
 
 class VanillaVAE(nn.Module):
     def __init__(self,
