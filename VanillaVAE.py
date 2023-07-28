@@ -102,7 +102,7 @@ class VanillaVAE(nn.Module):
         result = self.final_layer(result)
         return result
 
-    def reparameterize(self, mu: Tensor, logvar: Tensor) -> Tensor:
+    def reparameterize(self, mu: Tensor, logvar: Tensor, without_varinace = False) -> Tensor:
         """
         Reparameterization trick to sample from N(mu, var) from
         N(0,1).
@@ -112,16 +112,18 @@ class VanillaVAE(nn.Module):
         """
         std = torch.exp(0.5 * logvar)
         eps = torch.randn_like(std)
+        if without_varinace:
+            eps = torch.zeros_like(std)
         return eps * std + mu
 
-    def forward(self, input: Tensor, **kwargs) -> list[Tensor]:
+    def forward(self, input: Tensor, without_varinace = False, **kwargs) -> list[Tensor]:
         mu, log_var = self.encode(input)
-        z = self.reparameterize(mu, log_var)
+        z = self.reparameterize(mu, log_var, without_varinace=without_varinace)
         return  [self.decode(z), input, mu, log_var]
 
-    def generate_with_delta(self, input, delta):
+    def generate_with_delta(self, input, delta, without_variance = False):
         mu, log_var = self.encode(input)
-        z = self.reparameterize(mu+delta, log_var)
+        z = self.reparameterize(mu+delta, log_var, without_variance)
         return  self.decode(z)
     
     def generate_with_only_mu(self, mu):
