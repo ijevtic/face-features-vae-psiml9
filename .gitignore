@@ -3,3 +3,4 @@
 /models
 /wandb
 *.pt
+*.png
