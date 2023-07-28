@@ -2,4 +2,4 @@
 /data
 /models
 /wandb
-model.pt
+*.pt
