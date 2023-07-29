@@ -12,12 +12,12 @@ class CustomDataset(Dataset):
         self.loadToRam = loadToRam
 
         self.imgs = []
-        for i in range(len(img_labels)):
-            img_label = img_labels[i]
-            if i%1000 == 0:
-                print(i)
-            #print(img_label)
-            if loadToRam:
+        if loadToRam:
+            for i in range(len(img_labels)):
+                img_label = img_labels[i]
+                if i%1000 == 0:
+                    print(i)
+                #print(img_label)
                 img_path = f'{self.img_dir}/{img_label}'
                 image =  Image.open(img_path)
                 if self.transform:
